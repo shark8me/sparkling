@@ -20,7 +20,8 @@
             :aliases {"all" ["with-profile" "default"]
                       }
   :profiles {:default      [:base :system :user :provided :spark-1.6.1 :dev]
-             :dev          {:dependencies   [[criterium "0.4.3"]]
+             :dev          {:dependencies   [[criterium "0.4.3"]
+                                             [org.clojure/data.generators "0.1.2"]]
                             :plugins        [[lein-dotenv "RELEASE"]
                                              [jonase/eastwood "0.1.4"]
                                              [lein-kibit "0.1.2"]
@@ -33,6 +34,8 @@
                             ;; so gen-class stuff works in the repl
                             :aot            [sparkling.api
                                              sparkling.function
+                                             sparkling.serialization
+                                             ;added when CDNFE
                                              sparkling.scalaInterop
                                              ]}
              :jenkins      {:plugins [[lein-test-out "0.3.1"]] }
