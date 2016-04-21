@@ -19,9 +19,9 @@
 
             :aliases {"all" ["with-profile" "default"]
                       }
-  :profiles {:default      [:base :system :user :provided :spark-1.6.1 :dev]
+  :profiles {:default      [:base :system :user :provided :spark-1.6.1 :dev :test]
              :dev          {:dependencies   [[criterium "0.4.3"]
-                                             [org.clojure/data.generators "0.1.2"]]
+                                             ]
                             :plugins        [[lein-dotenv "RELEASE"]
                                              [jonase/eastwood "0.1.4"]
                                              [lein-kibit "0.1.2"]
@@ -34,8 +34,6 @@
                             ;; so gen-class stuff works in the repl
                             :aot            [sparkling.api
                                              sparkling.function
-                                             sparkling.serialization
-                                             ;added when CDNFE
                                              sparkling.scalaInterop
                                              ]}
              :jenkins      {:plugins [[lein-test-out "0.3.1"]] }
@@ -74,6 +72,7 @@
                                                     [[org.apache.spark/spark-core_2.10 "1.3.1"]]}
 
              :test         {:resource-paths ["dev-resources" "data"]
+                            :dependencies [[org.clojure/data.generators "0.1.2"]]
                             :aot            [sparkling.core
                                              sparkling.api
                                              sparkling.function
@@ -93,12 +92,13 @@
                                              sparkling.accumulator-test
                                              sparkling.test-registrator
                                              sparkling.serialization-test
-                                             ;sparkling.serialization
                                              sparkling.ml.classification
+                                             sparkling.ml.clustering
                                              sparkling.ml.core
                                              sparkling.ml.transform
                                              sparkling.ml.validation
-                                             sparkling.ml.core-test]}
+                                             sparkling.ml.core-test
+                                             sparkling.ml.clustering-test]}
              }
             :source-paths ["src/clojure"]
             :java-source-paths ["src/java"]

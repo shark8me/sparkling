@@ -3,6 +3,7 @@
             [sparkling.conf :as conf]
             [sparkling.api :as s]
             [sparkling.ml.core :as mlc]
+            [sparkling.sql.core :as sqc]
             [clojure.java.io :as io]
             [sparkling.ml.classification :as cl]
             [sparkling.ml.transform :as xf]
@@ -21,7 +22,7 @@
 
 (t/deftest cls-test
   (s/with-context c cconf
-    (let [sqc (mlc/sql-context c)]
+    (let [sqc (sqc/sql-context c)]
 
       (t/testing
        "valid classes created "
@@ -34,7 +35,7 @@
 
 (t/deftest classifier-metric
   (s/with-context c cconf
-    (let [sqc (mlc/sql-context c)
+    (let [sqc (sqc/sql-context c)
           svm-dataset-path
           "http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/svmguide1"
           tmpfile (.getPath (File/createTempFile "svmguide" "svm"))

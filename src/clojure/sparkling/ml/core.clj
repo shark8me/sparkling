@@ -3,15 +3,11 @@
   (:require
    [sparkling.conf :as conf]
    [sparkling.core :as s]
+   [sparkling.sql.core :as sq]
    [sparkling.ml.validation :as v])
   (:import [org.apache.spark.api.java JavaSparkContext]
     [org.apache.spark.ml Pipeline PipelineModel PipelineStage]
     [org.apache.spark.sql DataFrame SQLContext ]))
-
-(defn sql-context
-  "Returns an SQL context by wrapping a JavaSparkContext object "
-  ([^JavaSparkContext sc]
-  (SQLContext. sc)))
 
 (defn load-libsvm-dataset
   "Returns a DataFrame object loaded from the location svmfile."
@@ -85,5 +81,18 @@
                             (conf/app-name "core-test")) pipe))
   ([sconf pipe]
    (s/with-context sc sconf
-     (let [sqc (sql-context sc)]
+     (let [sqc (sq/sql-context sc)]
        (pipe {:sqc sqc})))))
+
+;;;;;;;;;;;;;;;;;;;
+(defn fit
+  ([est df]
+  (.fit est df))
+  ([est df parammap]
+  (.fit est df parammap)))
+
+(defn transform
+  ([xfrmer df]
+  (.transform xfrmer df))
+  ([xfrmer df parammap]
+  (.transform xfrmer df parammap)))

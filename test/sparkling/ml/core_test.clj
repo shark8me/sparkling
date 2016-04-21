@@ -3,6 +3,7 @@
             [sparkling.conf :as conf]
             [sparkling.api :as s]
             [sparkling.ml.core :as mlc]
+            [sparkling.sql.core :as sqc]
             [clojure.java.io :as io])
   (:import [org.apache.spark.api.java JavaSparkContext]
     [org.apache.spark.ml Pipeline PipelineModel PipelineStage]
@@ -16,7 +17,7 @@
                  (conf/master "local[*]")
                  (conf/app-name "core-test"))]
     (s/with-context c conf
-      (let [sqc (mlc/sql-context c)
+      (let [sqc (sqc/sql-context c)
             svm-dataset-path
             "http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/diabetes"
             tmpfile (.getPath (File/createTempFile "diabetes" "svm"))

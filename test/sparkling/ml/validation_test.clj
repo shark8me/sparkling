@@ -3,6 +3,7 @@
             [sparkling.conf :as conf]
             [sparkling.api :as s]
             [sparkling.ml.core :as mlc]
+            [sparkling.sql.core :as sqc]
             [clojure.java.io :as io]
             [sparkling.ml.classification :as cl]
             [sparkling.ml.validation :as v])
@@ -23,7 +24,7 @@
 
 (t/deftest validation-test
   (s/with-context c cconf
-    (let [sqc (mlc/sql-context c)]
+    (let [sqc (sqc/sql-context c)]
 
       (t/testing
        "valid classes created "
