@@ -15,7 +15,7 @@
                            [org.apache.avro/avro-mapred "1.7.7" :scope "provided" :classifier "hadoop2" :exclusions [org.slf4j/slf4j-api io.netty/netty commons-lang org.mortbay.jetty/servlet-api]]
 
                            ;[com.esotericsoftware.kryo/kryo "2.24.0" :scope "provided"]
-                           ]
+                           [citius "0.2.4"]]
 
             :aliases {"all" ["with-profile" "default"]
                       }
@@ -71,6 +71,13 @@
                                                     [[org.apache.spark/spark-core_2.10 "1.3.1"]]}
 
              :test         {:resource-paths ["dev-resources" "data"]
+                            :dependencies   [[citius "0.2.4"]
+                                             ;; https://mvnrepository.com/artifact/incanter/jfreechart
+                                             ;[incanter/jfreechart "1.0.13"]
+]
+                            :test-selectors {:default (complement :benchmarking)
+                                             :bench :benchmarking
+                                             :all (constantly true)}
                             :aot            [sparkling.core
                                              sparkling.api
                                              sparkling.function
@@ -87,6 +94,7 @@
                                              sparkling.conf-test
                                              sparkling.rdd.hadoopAvro-test
                                              sparkling.rdd.jdbc-test
+                                             sparkling.rdd.bench
                                              sparkling.accumulator-test
                                              sparkling.test-registrator
                                              sparkling.serialization-test
